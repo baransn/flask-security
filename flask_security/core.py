@@ -343,7 +343,7 @@ class Security(object):
         self.datastore = datastore
 
         if app is not None and datastore is not None:
-            self._state = self.init_app(app, datastore, **kwargs)
+            self.init_app(app, datastore, **kwargs)
 
     def init_app(self, app, datastore=None, register_blueprint=True,
         login_form=None, confirm_register_form=None,
@@ -383,7 +383,7 @@ class Security(object):
 
         app.extensions['security'] = state
 
-        return state
+        self.state = state
 
     def __getattr__(self, name):
-        return getattr(self._state, name, None)
+        return getattr(self.state, name, None)
